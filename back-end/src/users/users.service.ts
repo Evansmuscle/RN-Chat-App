@@ -8,23 +8,23 @@ import { UpdateUserInput } from './dto/update-user.input';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  create(createUserInput: CreateUserInput) {
-    const userEmail = this.prisma.user.findFirst({
+  async create(createUserInput: CreateUserInput) {
+    const sameEmail = await this.prisma.user.count({
       where: {
         email: createUserInput.email,
       },
     });
-    const userName = this.prisma.user.findFirst({
+    const sameName = await this.prisma.user.count({
       where: {
         userName: createUserInput.userName,
       },
     });
 
-    if (userEmail) {
+    if (sameEmail > 0) {
       return 'A user with that email already exists';
     }
 
-    if (userName) {
+    if (sameName > 0) {
       return 'A user with that name already exists';
     }
 
@@ -33,8 +33,8 @@ export class UsersService {
     return newUser;
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll() {
+    return await this.prisma.user.findMany();
   }
 
   findOne(id: number) {

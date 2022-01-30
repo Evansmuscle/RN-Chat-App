@@ -7,12 +7,58 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
+enum MaxGroupSize {
+  FREE      @map("50")
+  PREMIUM   @map("100")
+}
+
+enum GroupRole {
+  MEMBER
+  ADMIN
+  OWNER
+}
+
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  userName String @unique
-  password String
-  firstName String
-  lastName String
-  stars    Int    @default(0)
+  id               Int       @id @default(autoincrement())
+  email            String    @unique
+  userName         String    @unique
+  password         String
+  firstName        String
+  lastName         String
+  role             Role      @default(USER)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  stars            Int       @default(0)
+  avatar           String    @default("defaultUser.png")
+  background       String    @default("defaultBG.png")
+  bio              String    @default("Hello!")
+  groups           Group[]   @relation(name: "members")
+  ownedGroups      Group[]   @relation(name: "owner")
+  adminGroups      Group[]   @relation(name: "admins")
+  sentMessages     Message[] @relation(name: "sentMessages")
+  receivedMessages Message[] @relation(name: "receivedMessages")
+}
+
+model Group {
+  groupId     Int           @id @default(autoincrement())
+  members     User[]        @relation(references: [id], name: "members")
+  owner       User          @relation(fields: [ownerId], references: [id], name: "owner")
+  ownerId     Int
+  admins      User[]        @relation(references: [id], name: "admins")
+  avatar      String        @default("defaultGroup.png")
+  maxSize     MaxGroupSize  @default(FREE)
+}
+
+model Message {
+  id         Int    @id @default(autoincrement())
+  sender     User   @relation(fields: [senderId], references: [id], name: "sentMessages")
+  senderId   Int
+  receiver   User   @relation(fields: [receiverId], references: [id], name: "receivedMessages")
+  receiverId Int
+  content    String
 }
