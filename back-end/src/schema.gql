@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateGroupInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 input CreateUserInput {
   email: String!
   firstName: String!
@@ -10,15 +15,31 @@ input CreateUserInput {
   userName: String!
 }
 
+type Group {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 type Mutation {
   CreateUser(createUserInput: CreateUserInput!): User!
+  createGroup(createGroupInput: CreateGroupInput!): Group!
+  removeGroup(id: Int!): Group!
   removeUser(id: Int!): User!
+  updateGroup(updateGroupInput: UpdateGroupInput!): Group!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Query {
+  group(id: Int!): Group!
+  groups: [Group!]!
   user(id: Int!): User!
   users: [User!]!
+}
+
+input UpdateGroupInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
 }
 
 input UpdateUserInput {
