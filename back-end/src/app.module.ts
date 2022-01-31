@@ -8,6 +8,7 @@ import { CustomConfigModule } from './configuration/configuration.module';
 import { CustomConfigService } from './configuration/configuration.service';
 import { UsersModule } from './users/users.module';
 import { GroupsModule } from './groups/groups.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { GroupsModule } from './groups/groups.module';
     UsersModule,
     CustomConfigModule,
     GroupsModule,
+    MessagesModule,
   ],
   controllers: [AppController],
   providers: [AppService, CustomConfigService],

@@ -7,6 +7,11 @@ input CreateGroupInput {
   exampleField: Int!
 }
 
+input CreateMessageInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 input CreateUserInput {
   email: String!
   firstName: String!
@@ -20,23 +25,39 @@ type Group {
   exampleField: Int!
 }
 
+type Message {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
 type Mutation {
   CreateUser(createUserInput: CreateUserInput!): User!
   createGroup(createGroupInput: CreateGroupInput!): Group!
+  createMessage(createMessageInput: CreateMessageInput!): Message!
   removeGroup(id: Int!): Group!
+  removeMessage(id: Int!): Message!
   removeUser(id: Int!): User!
   updateGroup(updateGroupInput: UpdateGroupInput!): Group!
+  updateMessage(updateMessageInput: UpdateMessageInput!): Message!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Query {
   group(id: Int!): Group!
   groups: [Group!]!
+  message(id: Int!): Message!
+  messages: [Message!]!
   user(id: Int!): User!
   users: [User!]!
 }
 
 input UpdateGroupInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input UpdateMessageInput {
   """Example field (placeholder)"""
   exampleField: Int
   id: Int!
