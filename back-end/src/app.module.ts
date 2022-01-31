@@ -4,7 +4,8 @@ import { join } from 'path';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigurationModule } from './configuration/configuration.module';
+import { CustomConfigModule } from './configuration/configuration.module';
+import { CustomConfigService } from './configuration/configuration.service';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -13,10 +14,10 @@ import { UsersModule } from './users/users.module';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
     }),
-    ConfigurationModule,
     UsersModule,
+    CustomConfigModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, CustomConfigService],
 })
 export class AppModule {}

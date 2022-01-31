@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ConfigurationService } from './configuration.service';
+import { CustomConfigService } from './configuration.service';
 
 import * as Joi from 'joi';
 
@@ -11,9 +11,10 @@ import * as Joi from 'joi';
       validationSchema: Joi.object({
         PORT: Joi.number().default(3000),
       }),
+      isGlobal: true,
     }),
   ],
-  providers: [ConfigurationService, ConfigService],
-  exports: [ConfigurationService],
+  providers: [CustomConfigService, ConfigService],
+  exports: [CustomConfigService, ConfigService],
 })
-export class ConfigurationModule {}
+export class CustomConfigModule {}
