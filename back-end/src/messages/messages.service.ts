@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from '@src/prisma/prisma.service';
 import { CreateMessageInput } from './dto/create-message.input';
-import { UpdateMessageInput } from './dto/update-message.input';
+import { FindChatlogInput } from './dto/find-chatlog.input';
 
 @Injectable()
 export class MessagesService {
-  create(createMessageInput: CreateMessageInput) {
-    return 'This action adds a new message';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createMessageInput: CreateMessageInput) {
+    const message = await this.prisma.message.create({
+      data: createMessageInput,
+    });
+
+    return message;
   }
 
-  findAll() {
-    return `This action returns all messages`;
+  async findAll() {
+    return await this.prisma.message.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} message`;
+  async findChatlog({ receiverId, senderId }: FindChatlogInput) {
+    const chatLog = await this.prisma.message.findMany({
+      where: { senderId, receiverId },
+    });
+
+    return chatLog;
   }
 
-  update(id: number, updateMessageInput: UpdateMessageInput) {
-    return `This action updates a #${id} message`;
+  async findOne(id: number) {
+    return await this.prisma.message.findFirst({ where: { id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} message`;
+  async remove(id: number) {
+    return await this.prisma.message.delete({ where: { id } });
   }
 }

@@ -3,13 +3,16 @@
 # ------------------------------------------------------
 
 input CreateGroupInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  avatar: String!
+  name: String!
+  ownerId: Int!
+  title: String!
 }
 
 input CreateMessageInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  content: String!
+  receiverId: Int!
+  senderId: Int!
 }
 
 input CreateUserInput {
@@ -20,14 +23,30 @@ input CreateUserInput {
   userName: String!
 }
 
+input FindChatlogInput {
+  receiverId: Int!
+  senderId: Int!
+}
+
 type Group {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  admins: [User!]!
+  avatar: String!
+  groupId: ID!
+  maxSize: Int!
+  members: [User!]!
+  name: String!
+  owner: User!
+  ownerId: Int!
+  title: String!
 }
 
 type Message {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  content: String!
+  id: ID!
+  receiver: User!
+  receiverId: Int!
+  sender: User!
+  senderId: Int!
 }
 
 type Mutation {
@@ -37,30 +56,17 @@ type Mutation {
   removeGroup(id: Int!): Group!
   removeMessage(id: Int!): Message!
   removeUser(id: Int!): User!
-  updateGroup(updateGroupInput: UpdateGroupInput!): Group!
-  updateMessage(updateMessageInput: UpdateMessageInput!): Message!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Query {
+  chatlog(findChatlogInput: FindChatlogInput!): [Message!]!
   group(id: Int!): Group!
   groups: [Group!]!
   message(id: Int!): Message!
   messages: [Message!]!
   user(id: Int!): User!
   users: [User!]!
-}
-
-input UpdateGroupInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
-}
-
-input UpdateMessageInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
 }
 
 input UpdateUserInput {
@@ -76,7 +82,7 @@ type User {
   createdAt: String!
   email: String!
   firstName: String!
-  id: Int!
+  id: ID!
   lastName: String!
   password: String!
   stars: String!

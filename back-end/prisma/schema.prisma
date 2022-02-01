@@ -13,8 +13,8 @@ enum Role {
 }
 
 enum MaxGroupSize {
-  FREE      @map("50")
-  PREMIUM   @map("100")
+  FREE
+  PREMIUM
 }
 
 enum GroupRole {
@@ -46,6 +46,8 @@ model User {
 
 model Group {
   groupId     Int           @id @default(autoincrement())
+  title       String
+  name        String        @unique
   members     User[]        @relation(references: [id], name: "members")
   owner       User          @relation(fields: [ownerId], references: [id], name: "owner")
   ownerId     Int

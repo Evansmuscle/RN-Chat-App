@@ -37,20 +37,18 @@ export class UsersService {
     return await this.prisma.user.findMany();
   }
 
-  findOne(id: number) {
-    return {
-      id,
-      userName: 'Mel',
-      email: 'hello@test.com',
-      password: 'test',
-    };
+  async findOne(id: number) {
+    return await this.prisma.user.findFirst({ where: { id } });
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserInput: UpdateUserInput) {
+    return await this.prisma.user.update({
+      where: { id },
+      data: updateUserInput,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    return await this.prisma.user.delete({ where: { id } });
   }
 }

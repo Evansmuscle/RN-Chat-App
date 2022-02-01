@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
+
+import { PrismaService } from '@src/prisma/prisma.service';
 import { CreateGroupInput } from './dto/create-group.input';
 import { UpdateGroupInput } from './dto/update-group.input';
 
 @Injectable()
 export class GroupsService {
-  create(createGroupInput: CreateGroupInput) {
-    return 'This action adds a new group';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createGroupInput: CreateGroupInput) {
+    const group = await this.prisma.group.create({ data: createGroupInput });
+
+    return group;
   }
 
-  findAll() {
-    return `This action returns all groups`;
+  async findAll() {
+    return await this.prisma.group.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} group`;
+  async findOne(groupId: number) {
+    return await this.prisma.group.findFirst({ where: { groupId } });
   }
 
-  update(id: number, updateGroupInput: UpdateGroupInput) {
-    return `This action updates a #${id} group`;
-  }
+  // TODO: Fix update group input, the problem is caused because this is an input type and you're trying to change the id
+  // async update(groupId: number, updateGroupInput: UpdateGroupInput) {
+  //   const group = await this.prisma.group.update({
+  //     where: { groupId },
+  //     data: updateGroupInput,
+  //   });
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} group`;
+  async remove(groupId: number) {
+    return await this.prisma.group.delete({ where: { groupId } });
   }
 }

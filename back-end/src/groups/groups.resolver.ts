@@ -9,27 +9,33 @@ export class GroupsResolver {
   constructor(private readonly groupsService: GroupsService) {}
 
   @Mutation(() => Group)
-  createGroup(@Args('createGroupInput') createGroupInput: CreateGroupInput) {
-    return this.groupsService.create(createGroupInput);
+  async createGroup(
+    @Args('createGroupInput') createGroupInput: CreateGroupInput,
+  ) {
+    return await this.groupsService.create(createGroupInput);
   }
 
   @Query(() => [Group], { name: 'groups' })
-  findAll() {
-    return this.groupsService.findAll();
+  async findAll() {
+    return await this.groupsService.findAll();
   }
 
   @Query(() => Group, { name: 'group' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.groupsService.findOne(id);
+  async findOne(@Args('id', { type: () => Int }) groupId: number) {
+    return await this.groupsService.findOne(groupId);
   }
 
-  @Mutation(() => Group)
-  updateGroup(@Args('updateGroupInput') updateGroupInput: UpdateGroupInput) {
-    return this.groupsService.update(updateGroupInput.id, updateGroupInput);
-  }
+  // @Mutation(() => Group)
+  // async updateGroup(
+  //   @Args('groupId', { type: () => Int }) groupId: number,
+  //   @Args('updateGroupInput')
+  //   updateGroupInput: UpdateGroupInput,
+  // ) {
+  //   return await this.groupsService.update(groupId, updateGroupInput);
+  // }
 
   @Mutation(() => Group)
-  removeGroup(@Args('id', { type: () => Int }) id: number) {
-    return this.groupsService.remove(id);
+  async removeGroup(@Args('id', { type: () => Int }) id: number) {
+    return await this.groupsService.remove(id);
   }
 }
