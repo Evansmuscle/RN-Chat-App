@@ -6,17 +6,8 @@ import { MaxGroupSize } from '@src/constants';
 @InputType()
 export class UpdateGroupInput {
   @Field(() => String)
-  name?: string;
-
-  @Field(() => [User])
-  members?: User[];
-
-  @Field(() => [User])
-  admins?: User[];
+  title?: string;
 
   @Field(() => String)
   avatar?: string;
-
-  @Field(() => Int)
-  maxSize?: MaxGroupSize;
 }

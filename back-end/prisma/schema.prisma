@@ -12,11 +12,6 @@ enum Role {
   ADMIN
 }
 
-enum MaxGroupSize {
-  FREE
-  PREMIUM
-}
-
 enum GroupRole {
   MEMBER
   ADMIN
@@ -24,36 +19,38 @@ enum GroupRole {
 }
 
 model User {
-  id               Int       @id @default(autoincrement())
-  email            String    @unique
-  userName         String    @unique
-  password         String
-  firstName        String
-  lastName         String
-  role             Role      @default(USER)
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-  stars            Int       @default(0)
-  avatar           String    @default("defaultUser.png")
-  background       String    @default("defaultBG.png")
-  bio              String    @default("Hello!")
-  groups           Group[]   @relation(name: "members")
-  ownedGroups      Group[]   @relation(name: "owner")
-  adminGroups      Group[]   @relation(name: "admins")
-  sentMessages     Message[] @relation(name: "sentMessages")
-  receivedMessages Message[] @relation(name: "receivedMessages")
+  id                  Int            @id @default(autoincrement())
+  email               String         @unique
+  userName            String         @unique
+  password            String
+  firstName           String
+  lastName            String
+  role                Role           @default(USER)
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+  stars               Int            @default(0)
+  avatar              String         @default("defaultUser.png")
+  background          String         @default("defaultBG.png")
+  bio                 String         @default("Hello!")
+  groups              Group[]        @relation(name: "members")
+  ownedGroups         Group[]        @relation(name: "owner")
+  adminGroups         Group[]        @relation(name: "admins")
+  sentMessages        Message[]      @relation(name: "sentMessages")
+  sentGroupMessages   GroupMessage[] @relation(name: "sentGroupMessages")
+  receivedMessages    Message[]      @relation(name: "receivedMessages")
 }
 
 model Group {
-  groupId     Int           @id @default(autoincrement())
-  title       String
-  name        String        @unique
-  members     User[]        @relation(references: [id], name: "members")
-  owner       User          @relation(fields: [ownerId], references: [id], name: "owner")
-  ownerId     Int
-  admins      User[]        @relation(references: [id], name: "admins")
-  avatar      String        @default("defaultGroup.png")
-  maxSize     MaxGroupSize  @default(FREE)
+  groupId          Int                @id @default(autoincrement())
+  title            String
+  name             String             @unique
+  members          User[]             @relation(references: [id], name: "members")
+  owner            User               @relation(fields: [ownerId], references: [id], name: "owner")
+  ownerId          Int
+  admins           User[]             @relation(references: [id], name: "admins")
+  avatar           String             @default("defaultGroup.png")
+  maxSize          Int                @default(50)
+  messages         GroupMessage[]     @relation(name: "messages")
 }
 
 model Message {
@@ -61,6 +58,15 @@ model Message {
   sender     User   @relation(fields: [senderId], references: [id], name: "sentMessages")
   senderId   Int
   receiver   User   @relation(fields: [receiverId], references: [id], name: "receivedMessages")
+  receiverId Int
+  content    String
+}
+
+model GroupMessage {
+  id         Int    @id @default(autoincrement())
+  sender     User   @relation(fields: [senderId], references: [id], name: "sentGroupMessages")
+  senderId   Int
+  receiver   Group  @relation(fields: [receiverId], references: [groupId], name: "messages")
   receiverId Int
   content    String
 }

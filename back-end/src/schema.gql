@@ -29,15 +29,34 @@ input FindChatlogInput {
 }
 
 type Group {
-  admins: [User!]!
+  admins: [User!]
   avatar: String!
   groupId: ID!
+  groupMessages: [GroupMessage!]!
   maxSize: Int!
-  members: [User!]!
+  members: [User!]
   name: String!
-  owner: User!
   ownerId: Int!
   title: String!
+}
+
+type GroupMessage {
+  content: String!
+  id: ID!
+  receiver: Group!
+  receiverId: Int!
+  sender: User!
+  senderId: Int!
+}
+
+input MakeAdminInput {
+  groupId: Int!
+  memberId: Int!
+}
+
+input MakeMemberInput {
+  groupId: Int!
+  memberId: Int!
 }
 
 type Message {
@@ -53,9 +72,12 @@ type Mutation {
   CreateUser(createUserInput: CreateUserInput!): User!
   createGroup(createGroupInput: CreateGroupInput!): Group!
   createMessage(createMessageInput: CreateMessageInput!): Message!
+  makeAdmin(makeAdminInput: MakeAdminInput!): Group!
+  makeMember(makeMemberInput: MakeMemberInput!): Group!
   removeGroup(id: Int!): Group!
   removeMessage(id: Int!): Message!
   removeUser(id: Int!): User!
+  updateGroup(groupId: Int!, updateGroupInput: UpdateGroupInput!): Group!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
@@ -69,6 +91,11 @@ type Query {
   users: [User!]!
 }
 
+input UpdateGroupInput {
+  avatar: String!
+  title: String!
+}
+
 input UpdateUserInput {
   email: String
   firstName: String
@@ -79,11 +106,14 @@ input UpdateUserInput {
 }
 
 type User {
+  adminGroups: [Group!]!
   createdAt: String!
   email: String!
   firstName: String!
+  groups: [Group!]!
   id: ID!
   lastName: String!
+  ownedGroups: [Group!]!
   password: String!
   stars: String!
   updatedAt: String!

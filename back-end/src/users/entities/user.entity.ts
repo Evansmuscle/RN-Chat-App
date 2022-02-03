@@ -1,4 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { Group } from '@src/groups/entities/group.entity';
 
 @ObjectType()
 export class User {
@@ -29,5 +30,12 @@ export class User {
   @Field(() => String)
   updatedAt: string;
 
-  // TODO: Add group and message resolvers, and their entities.
+  @Field(() => [Group])
+  groups: Group[];
+
+  @Field(() => [Group])
+  adminGroups: Group[];
+
+  @Field(() => [Group])
+  ownedGroups: Group[];
 }

@@ -9,7 +9,7 @@ specifiers:
   '@nestjs/platform-express': ^8.0.0
   '@nestjs/schematics': ^8.0.0
   '@nestjs/testing': ^8.0.0
-  '@prisma/client': ^3.9.0
+  '@prisma/client': ^3.9.1
   '@types/express': ^4.17.13
   '@types/jest': ^27.0.1
   '@types/node': ^16.0.0
@@ -26,7 +26,7 @@ specifiers:
   jest: ^27.0.6
   joi: ^17.6.0
   prettier: ^2.3.2
-  prisma: ^3.9.0
+  prisma: ^3.9.1
   reflect-metadata: ^0.1.13
   rimraf: ^3.0.2
   rxjs: ^7.2.0
@@ -56,7 +56,7 @@ devDependencies:
   '@nestjs/cli': 8.2.0_eslint@7.32.0
   '@nestjs/schematics': 8.0.5_typescript@4.5.5
   '@nestjs/testing': 8.2.6_b893ca8083ee374883b6d648098a9aeb
-  '@prisma/client': 3.9.0_prisma@3.9.0
+  '@prisma/client': 3.9.1_prisma@3.9.1
   '@types/express': 4.17.13
   '@types/jest': 27.4.0
   '@types/node': 16.11.21
@@ -68,7 +68,7 @@ devDependencies:
   eslint-plugin-prettier: 3.4.1_6e6a25a49a944db0fa38418c3ba4bc86
   jest: 27.4.7_ts-node@10.4.0
   prettier: 2.5.1
-  prisma: 3.9.0
+  prisma: 3.9.1
   supertest: 6.2.2
   ts-jest: 27.1.3_a7e53b5e5b59e71a0fd4d8cf128393d5
   ts-loader: 9.2.6_typescript@4.5.5
@@ -1207,8 +1207,8 @@ packages:
       - encoding
     dev: false
 
-  /@prisma/client/3.9.0_prisma@3.9.0:
-    resolution: {integrity: sha512-PByWVI7l+KYUQL/pqR81363qhUh3LhYMIYn2czz5slbt3JC6aAk+Wm7PE9nalqSE6s4xSIYdHj6N0yTNqr86sA==}
+  /@prisma/client/3.9.1_prisma@3.9.1:
+    resolution: {integrity: sha512-aLwfXKLvL+loQ0IuPPCXkcq8cXBg1IeoHHa5lqQu3dJHdj45wnislA/Ny4UxRQjD5FXqrfAb8sWtF+jhdmjFTg==}
     engines: {node: '>=12.6'}
     requiresBuild: true
     peerDependencies:
@@ -1218,7 +1218,7 @@ packages:
         optional: true
     dependencies:
       '@prisma/engines-version': 3.9.0-58.bcc2ff906db47790ee902e7bbc76d7ffb1893009
-      prisma: 3.9.0
+      prisma: 3.9.1
     dev: true
 
   /@prisma/engines-version/3.9.0-58.bcc2ff906db47790ee902e7bbc76d7ffb1893009:
@@ -4814,8 +4814,8 @@ packages:
       react-is: 17.0.2
     dev: true
 
-  /prisma/3.9.0:
-    resolution: {integrity: sha512-KppIukAgJH6o4q9CRYQUqpJUFt8XOK+5eTlv9W+w/SnaSzar+zbT7RCxspCkoGGVSASAQDMYWSKm3QON/o5ENg==}
+  /prisma/3.9.1:
+    resolution: {integrity: sha512-IGcJAu5LzlFv+i+NNhOEh1J1xVVttsVdRBxmrMN7eIH+7mRN6L89Hz1npUAiz4jOpNlHC7n9QwaOYZGxTqlwQw==}
     engines: {node: '>=12.6'}
     hasBin: true
     requiresBuild: true

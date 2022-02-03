@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { GroupMessage } from '@src/messages/entities/group-message.entity';
 
-import { MaxGroupSize } from '@src/constants';
 import { User } from '@src/users/entities/user.entity';
 
 @ObjectType()
@@ -14,21 +14,21 @@ export class Group {
   @Field(() => String)
   title: string;
 
-  @Field(() => [User])
-  members: User[];
-
-  @Field(() => User)
-  owner: User;
+  @Field(() => [User], { nullable: true })
+  members?: User[];
 
   @Field(() => Int)
   ownerId: number;
 
-  @Field(() => [User])
-  admins: User[];
+  @Field(() => [User], { nullable: true })
+  admins?: User[];
 
   @Field(() => String)
   avatar: string;
 
   @Field(() => Int)
-  maxSize: MaxGroupSize;
+  maxSize: number;
+
+  @Field(() => [GroupMessage])
+  groupMessages: GroupMessage[];
 }
