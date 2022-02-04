@@ -12,11 +12,17 @@
   "dependencies": {
     "@apollo/client": "^3.5.8",
     "@eva-design/eva": "^2.1.1",
+    "@react-navigation/native": "^6.0.8",
+    "@react-navigation/native-stack": "^6.4.1",
     "@reduxjs/toolkit": "^1.7.2",
     "@ui-kitten/components": "^5.1.1",
+    "cli-platform-android": "link:@react-native-community\\cli-platform-android",
     "graphql": "^16.3.0",
     "react": "17.0.2",
     "react-native": "0.66.4",
+    "react-native-eject": "^0.1.2",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-screens": "^3.10.2",
     "react-native-svg": "^12.1.1",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2"
